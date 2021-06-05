@@ -63,8 +63,6 @@ class GuestAdapter(
             Handler(Looper.getMainLooper()).postDelayed({
                 context.startActivity(intent)
             }, 1500)
-
-
         }
     }
 
