@@ -3,8 +3,11 @@ package com.kakapo.screeningtest1.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kakapo.screeningtest1.databinding.ItemViewGuestBinding
@@ -51,7 +54,16 @@ class GuestAdapter(
 
             val guestDate = itemGuest.birthdate.split("-")
             intent.putExtra(GUEST_DATE, guestDate[2])
-            context.startActivity(intent)
+            val isPrimeNumber = isPrimeNumber(guestDate[1])
+            Toast.makeText(
+                context,
+                isPrimeNumber,
+                Toast.LENGTH_SHORT
+            ).show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                context.startActivity(intent)
+            }, 1500)
+
 
         }
     }
@@ -65,6 +77,19 @@ class GuestAdapter(
         list = guest
         listImage = guestImage
         notifyDataSetChanged()
+    }
+
+    private fun isPrimeNumber(number: String) : String{
+        val regexNumber = "0"
+        val numberValue = number.replace(regexNumber, "")
+        val primeNumber = numberValue.toInt()
+        for(i in 2..primeNumber){
+            if (primeNumber % i == 0){
+                return "not prime number"
+            }
+        }
+
+        return "it's prime number"
     }
 
 }

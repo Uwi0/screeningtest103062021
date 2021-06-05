@@ -8,15 +8,25 @@
     android:orientation="vertical"
     tools:context=".ui.EventActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_event"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <androidx.appcompat.widget.Toolbar
+           android:id="@+id/toolbar_event"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="?attr/colorPrimary"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:titleTextColor="@color/black" />
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="2dp"
+           android:background="#c4b454"
+           android:layout_alignBottom="@id/toolbar_event"
+           />
+   </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_event"

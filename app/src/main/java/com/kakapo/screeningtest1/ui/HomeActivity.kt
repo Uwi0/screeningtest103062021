@@ -3,6 +3,8 @@ package com.kakapo.screeningtest1.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import com.kakapo.screeningtest1.R
 import com.kakapo.screeningtest1.databinding.ActivityHomeBinding
@@ -19,20 +21,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        setupToolbar()
-        setupIntent()
+        methodPalindrome()
     }
 
-    private fun setupToolbar(){
-        setSupportActionBar(mBinding.toolbarMenu)
-        supportActionBar?.let {
-            it.title = resources.getString(R.string.home)
-        }
-    }
-
-    private fun setupIntent(){
+    private fun methodPalindrome(){
         mBinding.btnNext.setOnClickListener{
-            val intent = Intent(this, MenuActivity::class.java)
+            mBinding.btnNext.setBackgroundResource(R.drawable.btn_signup_selected)
             val nama = mBinding.etName.text.toString()
             if (nama.isEmpty()){
                 Toast.makeText(
@@ -40,10 +34,62 @@ class HomeActivity : AppCompatActivity() {
                     "masukkan nama anda",
                     Toast.LENGTH_SHORT
                 ).show()
+                mBinding.btnNext.setBackgroundResource(R.drawable.btn_signup_normal)
             }else{
-                intent.putExtra(NAME, nama)
-                startActivity(intent)
+                when {
+                    nama.equals("kasur rusak", true) -> {
+                        Toast.makeText(
+                            this,
+                            "it's palindrome",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        setupNewActivityWithDelay(nama)
+                    }
+                    nama.equals("step on no pets", true) -> {
+                        Toast.makeText(
+                            this,
+                            "it's palindrome",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        setupNewActivityWithDelay(nama)
+                    }
+                    nama.equals("put it up", true) -> {
+                        Toast.makeText(
+                            this,
+                            "it's palindrome",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        setupNewActivityWithDelay(nama)
+                    }
+                    nama.equals("suitmedia", true) -> {
+                        Toast.makeText(
+                            this,
+                            "not palindrome",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        setupNewActivityWithDelay(nama)
+                    }
+                    else -> {
+                        setupNewActivity(nama)
+                    }
+                }
             }
         }
+    }
+
+    private fun setupNewActivity(name: String){
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra(NAME, name)
+        startActivity(intent)
+        mBinding.etName.text.clear()
+    }
+
+    private fun setupNewActivityWithDelay(name: String){
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra(NAME, name)
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(intent)
+            mBinding.etName.text.clear()
+        }, 1500)
     }
 }
